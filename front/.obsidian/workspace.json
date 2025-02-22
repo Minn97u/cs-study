@@ -1,0 +1,192 @@
+{
+  "main": {
+    "id": "ba18493fbfb0030b",
+    "type": "split",
+    "children": [
+      {
+        "id": "82120a1f068a405f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "27592b6830d1ee65",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "프론트 cs 정리.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "프론트 cs 정리"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cce19ad1e1f22901",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ecf814d9ef23da02",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "그래프 뷰"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "00dcf47fe7d53f58",
+    "type": "split",
+    "children": [
+      {
+        "id": "1176136b558bffb8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2401fce6cd5970df",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "73c4873e430e2fc4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "3fdb55a8f20fa253",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ff857df4aa8ccd8a",
+    "type": "split",
+    "children": [
+      {
+        "id": "2567cd9d71d593bf",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "99164e0522e65173",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "프론트 cs 정리.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "프론트 cs 정리 의 백링크"
+            }
+          },
+          {
+            "id": "340be6446030d7b4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "프론트 cs 정리.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "프론트 cs 정리 의 나가는 링크"
+            }
+          },
+          {
+            "id": "3d406bec0ee06e27",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "df5feebc5d9bc26a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "프론트 cs 정리.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "프론트 cs 정리 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false
+    }
+  },
+  "active": "27592b6830d1ee65",
+  "lastOpenFiles": [
+    "create a link.md",
+    "프론트 cs 정리.md"
+  ]
+}
