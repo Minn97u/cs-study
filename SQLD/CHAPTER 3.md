@@ -141,7 +141,7 @@ SELECT EMPNO, COALESCE(HOURLY_WAGE, SALARY, COMMISSION) AS TOTAL_SALARY FROM WAG
 
 ## CHAPTER 3.3 : WHERE 절
 
-- 특정 조건을 만족하는 행만을 대상으로 연산을 수행
+- 특정 조건을 만족하는 행만을 대상으로 연산을 수행 (조건절이다)
 - SELECT, UPDATE, DELETE에 사용가능하나 INSERT에는 사용불가
 - FROM 절을 먼저 수행하므로 FROM절에서 정의한 테이블에 대한 별명(Alias)은 사용할 수 있으나,
 	SELECT절에서 정의한 칼럼에 대한 별명은 사용할 수 없다.
@@ -154,3 +154,91 @@ SELECT * FROM EMP WHERE DEPTNO = 30;
 2. DEPTNO가 30인
 3. 모든 행을 조회
 ```
+
+```
+UPDATE EMP SET JOB = 'SALESMAN' WHERE DEPTNO = 30;
+
+[해설]
+1. DEPTNO가 30인 행에 대해서 JOB 칼럼의 값을 'SALESMAN'으로 변경한다.
+```
+
+> 주의! WHERE절에서 NULL과의 동등/부정 비교
+- WHERE절에서의 NULL과의 동등/부정 비교는 IS NULL, IS NOT NULL만 사용 가능하다.
+- NULL, 칼럼!=NULL 등 비교연산자를 이용한 조건식은 제대로 동작하지 않는다. 
+	결과는 FALSE가 나온다
+
+> FROM 절에서의 별명은 WHERE절에서 사용가능하다 
+> <span style="background:#fff88f">하지만 SELECT 절에서의 별명은 WHERE절에서 사용 불가 하다.</span>
+
+---
+## CHAPTER 3.5 : GROUP BY 절
+
+- 특정 값을 기준으로 데이터를 그룹핑할 때 사용
+
+```
+SELECT DEPTNO, SUM(SAL) AS SALS FROM EMP GROUP BY DEPTNO;
+
+[해설]
+1. EMP 테이블에서
+2. DEPTNO로 그룹핑 한 후,
+3. DEPTNO별 SAL의 합계를 조회
+```
+
+
+#### 집계함수
+- GROUP BY 절로 그룹핑한 후에는 해당 그룹에 대해 집계함수를 사용하여 개수, 합 , 평균 등을 계산
+- 집계함수는 그룹을 대상으로 연산을 수행하므로, GROUP BY 절 없이 집계함수를 사용하면 전체 행을 하나의 그룹으로 간주하고 연산 수행
+
+><span style="background:#fff88f"> 칼럼명 앞에 DISTINCT를 붙이면 칼럼값의 중복을 제거하므로, 집계함수의 인자로 입력되는 칼럼명에 DISTINCT를 사용하면 해당 그룹에서 첫 번쨰 행에 대해서만 연산을 수행</span>
+
+
+### HAVING 절
+- GROUP BY 연산이 끝난 결과에 대해서 HAVING절의 조건을 만족하는 그룹만 추출
+- WHERE 절하고 다른점?
+	- 집계함수를 쓸 수 있다.
+
+```
+SELECT ID FROM TBL
+GROUP BY ID
+HAVING COUNT(*) = 2;
+
+[해설]
+1. TBL 테이블에서
+2. ID로 그룹핑 한 후,
+3. ID별로 그룹핑한 개수가 2인
+4. ID를 조회
+```
+
+### ORDER BY 절
+- ORDER BY 절은 SELECT 문에서 논리적으로 맨 마지막에 수행된다.
+```
+SELECT 문의 논리적 수행 순서
+
+1. SELECT
+2. FROM
+3. WHERE
+4. GROUP BY
+5. HAVING
+6. ORDER BY
+
+```
+
+- ORDER BY 절을 이용해서 SELECT한 데이터를 정렬할 수 있으며 ORDER BY 절을 따로 명시하지 않으면 데이터는 임의의 순서대로 출력된다. ORDER BY 절 뒤에는 정렬의 기준이 되는 컬럼이 오게 되는데 컬럼은 하나가 될 수도 있고 그 이상이 될 수도 있다. 또한 ORDER BY 절 뒤에 오는 컬럼에는 옵션이 붙을 수 있으며 종류는 다음과 같다.
+
+```
+- ASC(Ascending) : 오름차순
+- DESC(Descending) : 내림차순
+- 옵션 생략 시 ASC가 기본값이 된다.
+- 정렬의 기준이 되는 컬럼에 NULL 데이터가 포함되어 있을 경우 데이터 베이스 종류에 따라 정렬의 위치가 달라진다
+Oracle의 경우에는 NULL을 최댓값 취급 -> 오름차순의 경우에 맨 마지막에 위치
+SQL Server는 반대
+
+순서를 변경하고 싶다면 NULLS FIRST< NULLS LAST 옵션을 써서 정렬 순서를 변경 가능하다
+```
+
+> <span style="background:#fff88f">ORDER BY 절은 논리적으로 SELECT 절 다음에 수행되기 때문에 SELECT 절에서 장의한 ALIAS를 사용할 수 있다. ORDER BY 절의, 옵션은 각 칼럼 다음에 하나씩 붙여서 작성해야한다.</span>
+
+
+## CHAPTER 3.5 : JOIN
+
+
