@@ -209,7 +209,7 @@ HAVING COUNT(*) = 2;
 4. ID를 조회
 ```
 
-### ORDER BY 절
+### ORDER BY 절 ⭐️
 - ORDER BY 절은 SELECT 문에서 논리적으로 맨 마지막에 수행된다.
 ```
 SELECT 문의 논리적 수행 순서
@@ -239,6 +239,50 @@ SQL Server는 반대
 > <span style="background:#fff88f">ORDER BY 절은 논리적으로 SELECT 절 다음에 수행되기 때문에 SELECT 절에서 장의한 ALIAS를 사용할 수 있다. ORDER BY 절의, 옵션은 각 칼럼 다음에 하나씩 붙여서 작성해야한다.</span>
 
 
-## CHAPTER 3.5 : JOIN
+## CHAPTER 3.5 : JOIN ⭐️⭐️
 
+- 두 개의 테이블을 하나로 병합하는 연산
+
+>UNION = 합집합
+
+#### EQUI JOIN
+- Equal(=), 즉 등식을 조건으로 사용할 때 발생하는 조인
+- 칼럼 값이 정확하게 일치할 때에 성립하는 것으로 WHERE절의 조건이 등식인 경우 
+- 예를 들어 한 쇼핑몰에서 sqlchild라는 아이디를 가진 사람이 온라인으로 마우스를 구매하고 리뷰를 작성했다고 하자, 마우스는 상품 테이블의 데이터일 것이고 리뷰는 리뷰 테이블에 저장될 것이다.
+#### Non EQUI JOIN
+- WHERE절의 조건이 등식이 아닌 부등식 (BETWEEN, >, >=, <=)을 사용해 범위를 나타낸 조건일 때 발생하는 조인
+- 예를 들어 이벤트 기간 동안 리뷰를 작성한 고객에게 사은품을 주는 행사를 하고 있다고 가정해보자, 이 경우 리뷰 테이블과 이벤트 테이블이 JOIN되어야 할 것 이다.
+
+
+### INNER JOIN
+- 교집합의 개념으로 기준이 되는 키에 따른 칼럼값이 존재하는 것만 병합
+
+```
+SELECT A1.ACTOR_NO ACT_N01, A2.ACTOR_NO ACT_N02, A2.MOVIE_NO, A1.NAME, A1.GENDER
+FROM ACTOR A1 INNER JOIN APPR A2 ON A1.ACTOR_NO = A2.ACTOR_NO;
+```
+### OUTER JOIN
+- 합집합의 개념으로, 기준이 되는 키에 따른 칼럼값이 존재하지 않더라도 모든 튜플을 병합
+-  LEFT OUTER JOIN : 왼쪽 테이블의 모든 행을 포함시키면서 조인
+-  RIGHT OUTER JOIN : 왼쪽 테이블의 모든 행을 포함시키면서 조인
+-  FULL OUTER JOIN : 모든 테이블의 모든 행을 포함시키면서 조인
+
+### NATURAL JOIN ⭐️⭐️
+- 조인의 대상이 되는 두 테이블에서 같은 이름의 칼럼에 대해서는 동일한 칼럼값을 가지는 행만 병합
+
+```
+SELECT * FROM ACTOR NATURAL JOIN APPR;
+```
+
+### CROSS JOIN ⭐️⭐️
+- 왼쪽 테이블의 각 행에 대한 오른쪽 테이블 모든 행의 대응을 조합하여 결과를 출력
+- 왼쪽 테이블이 M행이고 오른쪽 테이블이 N행이면 CROSS JOIN의 결과는 MxN 행
+
+```
+SELECT S1.NAME, C1.NAME FROM STUDENT S1, CLUB C1;
+=
+SELECT S1.NAME, C1.NAME FROM STUDENT S1 CROSS JOIN CLUB C1;
+
+둘 다 같은 의미
+```
 
