@@ -140,3 +140,95 @@ WHERE (JOB, SAL) IN (SELECT JOB, MAX(SAL) FROM EMP GROUP BY JOB);
 
 ---
 
+## CHAPTER 4.2 : VIEW
+
+- 특정 SELECT 문에 이름을 붙여서 재사용이 가능하도록 저장해놓은 오브젝트이다. SQL에서 테이블처럼 사용할 수 있으며 앞서 배운 인라링 뷰를 뷰로 정의한다고 가정해보면 쿼리 작성 시 인라인 뷰가 들어가는 위치에 뷰 이름만 기술하게 될 것이다.
+
+```
+CREATE OR REPLACE VIEW DEPT_MEMBER AS
+	SELECT A.DEPARTMENT_ID,
+			A.DEPARTMENT_NAME,
+			B.FIRST_NAME,
+			B.LAST_NAME
+	FROM DEPARTMENTS A
+	LEFT OUTER JOIN EMPLOYEES B
+		ON A.DEPARTMENT_ID = B.DEPARTMENT_ID;
+```
+
+- 혼돈하지 말아야 할 점은 뷰는 가상 테이블 이라는 것이다. 따라서 실제 데이터를 저장하지는 않고 해당 데이터를 조회해오는 SELECT 문만 가지고 있다.
+
+---
+
+## 집합연산자
+
+- UNION ALL - 각 쿼리의 결과 집합의 합집합이다. 중복된 행도 그대로 출력된다.
+- UNION - 각 쿼리의 결과 집합의 합집합이다. 중복된 행은 한 줄로 출력된다.
+- INTERSECT - 각 쿼리의 집합의 교집합이다. 중복된 행은 한 줄로 출력된다. (헤더 값은 첫번째 쿼리를 따라간다)
+- MINUS / EXCEPT - 앞에 있는 쿼리의 결과 집합에서 뒤에 있는 쿼리의 결과 집합을 뺸 차집합이다. 중복된 행은 한 줄로 출력 된다.
+
+---
+
+## CHAPTER 4.2 : 그룹함수
+
+- GROUP BY절의 연산 결과에 대해 그룹 별로 연산을 수행하는 함수
+- 집계함수, ROLLUP, CUBE, GROUPING SETS 등
+
+### ROLLUP
+- GROUP BY절에 들어가는 칼럼을 대상으로 하위 그룹핑을 수행
+- 그룹별 소계 & 총계
+- ex) GROUP BY ROLLUP(날짜, 이름) ------ (날짜, 이름) -> (날짜) -> (전체) 순서로 하위 그룹핑
+
+```
+SELECT CYL, COINT(*)
+FROM MTCARS
+GROUP BY ROLLUP(CYL)
+ORDER BY CYL;
+
+-------------------------
+실린더 수 별로 그룹핑하여 그룹 별 개수를 구하고, 총계를 구한다.
+```
+
+### CUBE
+- 조합 가능한 모든 경우로 그룹핑을 수행
+- ex) GROUP BY CUBE(날짜, 이름) ------ (날짜, 이름) -> (날짜) -> (이름) -> (전체) 순서로 하위 그룹핑
+
+```
+SELECT CYL, GEAR, COINT(*)
+FROM MTCARS
+GROUP BY CUBE(CYL, GEAR)
+ORDER BY CYL, GEAR;
+
+-------------------------
+실린더 수, 기어 수 별로 그룹핑하여 그룹 별 개수를 구하고, 실린더 수 별 소계, 기어 수 별 소개, 총계를 구한다.
+```
+
+### GROUPING SETS
+- 그룹핑 대상을 지정하는 함수
+- GROUPING SETS의 인자에 ROLLUP이나 CUBE 함수를 넣을 수 있으며,
+	이런 경우에는 ROLLUP이나 CUBE의 그룹핑 결과인 소계, 총계들이 각각 별개의 인자로 지정된 것과 같은 결과를 반환한다.
+
+```
+SELECT CYL, GEAR, COINT(*)
+FROM MTCARS
+GROUP BY GROUPING SETS(CYL, GEAR)
+ORDER BY CYL, GEAR;
+
+-------------------------
+실린더 수, 기어 수 별로 그룹핑하여 그룹 별 개수를 구한다.
+```
+
+### GROUPING
+- ROLLIP, CUBE, GROUPING SETS와 함께 쓰이며 소계에 해당하는 결과 행과 그렇지 않은 행을 구분
+- 소계에 해당하는 결과 행의 결우에는 1을 반환하고 그렇지 않은 경우에는 0을 반환
+- GROUPING함수와 CASE문을 사용하여 소계나 총계를 표시하는 행에 대해서 그 의미에 맞는 텍스트를 값으로 지정가능
+
+```
+SELECT CASE GROUPING(CYL)
+		WHEN 1 THEN '총계' ELSE TO_CHAR(CYL)
+		END AS CYL,
+		COUNT(*)
+FROM MTCARS
+GROUP BY ROLLUP(CYL)
+ORDER BY CYL;
+```
+
