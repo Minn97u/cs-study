@@ -146,3 +146,11 @@ SELECT EMPNO, COALESCE(HOURLY_WAGE, SALARY, COMMISSION) AS TOTAL_SALARY FROM WAG
 - FROM 절을 먼저 수행하므로 FROM절에서 정의한 테이블에 대한 별명(Alias)은 사용할 수 있으나,
 	SELECT절에서 정의한 칼럼에 대한 별명은 사용할 수 없다.
 
+```
+SELECT * FROM EMP WHERE DEPTNO = 30;
+
+[해설]
+1. EMP 테이블에서
+2. DEPTNO가 30인
+3. 모든 행을 조회
+```
