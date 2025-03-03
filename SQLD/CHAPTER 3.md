@@ -239,17 +239,17 @@ SQL Server는 반대
 > <span style="background:#fff88f">ORDER BY 절은 논리적으로 SELECT 절 다음에 수행되기 때문에 SELECT 절에서 장의한 ALIAS를 사용할 수 있다. ORDER BY 절의, 옵션은 각 칼럼 다음에 하나씩 붙여서 작성해야한다.</span>
 
 
-## CHAPTER 3.5 : JOIN ⭐️⭐️
+## CHAPTER 3.5 : JOIN ⭐️⭐️⭐️
 
 - 두 개의 테이블을 하나로 병합하는 연산
 
 >UNION = 합집합
 
-#### EQUI JOIN
+### EQUI JOIN
 - Equal(=), 즉 등식을 조건으로 사용할 때 발생하는 조인
 - 칼럼 값이 정확하게 일치할 때에 성립하는 것으로 WHERE절의 조건이 등식인 경우 
 - 예를 들어 한 쇼핑몰에서 sqlchild라는 아이디를 가진 사람이 온라인으로 마우스를 구매하고 리뷰를 작성했다고 하자, 마우스는 상품 테이블의 데이터일 것이고 리뷰는 리뷰 테이블에 저장될 것이다.
-#### Non EQUI JOIN
+### Non EQUI JOIN
 - WHERE절의 조건이 등식이 아닌 부등식 (BETWEEN, >, >=, <=)을 사용해 범위를 나타낸 조건일 때 발생하는 조인
 - 예를 들어 이벤트 기간 동안 리뷰를 작성한 고객에게 사은품을 주는 행사를 하고 있다고 가정해보자, 이 경우 리뷰 테이블과 이벤트 테이블이 JOIN되어야 할 것 이다.
 
@@ -266,6 +266,9 @@ FROM ACTOR A1 INNER JOIN APPR A2 ON A1.ACTOR_NO = A2.ACTOR_NO;
 -  LEFT OUTER JOIN : 왼쪽 테이블의 모든 행을 포함시키면서 조인
 -  RIGHT OUTER JOIN : 왼쪽 테이블의 모든 행을 포함시키면서 조인
 -  FULL OUTER JOIN : 모든 테이블의 모든 행을 포함시키면서 조인
+
+> 💡 오라클 문접중에 OUTER JOIN을 나타내는 문법이 있다
+- FROM T1 T2 <span style="background:#d4b106">(+)</span> <- 시험 가능성
 
 ### NATURAL JOIN ⭐️⭐️
 - 조인의 대상이 되는 두 테이블에서 같은 이름의 칼럼에 대해서는 동일한 칼럼값을 가지는 행만 병합
@@ -286,3 +289,4 @@ SELECT S1.NAME, C1.NAME FROM STUDENT S1 CROSS JOIN CLUB C1;
 둘 다 같은 의미
 ```
 
+---
