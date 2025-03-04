@@ -140,7 +140,7 @@ WHERE (JOB, SAL) IN (SELECT JOB, MAX(SAL) FROM EMP GROUP BY JOB);
 
 ---
 
-## CHAPTER 4.2 : VIEW
+## CHAPTER 4.2 : VIEW 
 
 - 특정 SELECT 문에 이름을 붙여서 재사용이 가능하도록 저장해놓은 오브젝트이다. SQL에서 테이블처럼 사용할 수 있으며 앞서 배운 인라링 뷰를 뷰로 정의한다고 가정해보면 쿼리 작성 시 인라인 뷰가 들어가는 위치에 뷰 이름만 기술하게 될 것이다.
 
@@ -168,7 +168,7 @@ CREATE OR REPLACE VIEW DEPT_MEMBER AS
 
 ---
 
-## CHAPTER 4.2 : 그룹함수
+## CHAPTER 4.2 : 그룹함수 ⭐️⭐️⭐️
 
 - GROUP BY절의 연산 결과에 대해 그룹 별로 연산을 수행하는 함수
 - 집계함수, ROLLUP, CUBE, GROUPING SETS 등
@@ -238,7 +238,7 @@ ORDER BY CYL;
 
 ---
 
-## CHAPTER 4.4 : 윈도우함수
+## CHAPTER 4.4 : 윈도우함수 ⭐️⭐️
 
 
 ### 순위함수
@@ -315,3 +315,55 @@ WHERE CYL <= 6;
 
 ## CHAPTER 4.5 : Top N 쿼리
 
+### ROWNUM
+- 현재 저장된 데이터를 그대로 두면서 각 행에 순차적인 번호를 부여
+- 테이블의 첫 행부터 차례로 순회하면서 값을 반환하기 떄문에 중간을 건너뛰고 값을 가져올 수 없으며,
+	WHERE절에 ROWNUM을 사용할 경우 조건식이 FALSE가 되면 순회를 멈추고 결과를 반환함에 주의
+
+```
+SELECT ROWNUM, EMPNO, ENAME, SAL
+FROM EMP
+WHERE ROWNUM <= 5;
+---------------------------------------------------------------------
+- 순회
+```
+
+📌 주의!!
+```
+SELECT ROWNUM, EMPNO, ENAME, SAL
+FROM EMP
+WHERE ROWNUM = 5;
+---------------------------------------------------------------------
+- ROWNUM에 대해 대소비교가 아닌 등식 비교를 하면 아래와 같이 아무런 결과를 가져오지 못한다. ROWNUM이 1일 때 조건이 FALSE가 되어 더 이상 순회하지 않고 바로 결과를 반환하기 떄문이다.
+
+```
+
+```
+SELECT ROWNUM, EMPNO, ENAME, SAL
+FROM EMP
+WHERE ROWNUM <= 5
+ORDER BY SAL;
+---------------------------------------------------------------------
+- 이렇게 하면 ORDER BY절은 항상 마지막에 실행되므로 순위를 반영한 이후에 ORDER BY가 실행되어 순위가 순서대로 나오지 않는다.
+- 그래서 이 경우에 서브쿼리를 사용해야한다
+```
+
+
+#### 윈도우함수의 순위함수를 사용한 Top N 쿼리
+
+```
+SELECT *
+FROM (SELECT RANK() OVER(ORDER BY SAL DESC) AS RANK,
+			EMPNO,
+			ENAME,
+			SAL
+		FROM EMP)
+WHERE RANK <= 5;
+---------------------------------------------------------------------
+- 서브 쿼리에서 SAL이 큰 순서대로 RANK를 사용하여 순위를 매긴 후, 상위 5순위까지 출력한다.
+- 여기서 RANK나 DANSE_RANK의 특성 때문에 특정 겹치는 순위로인해 행의 개수가 늘어날 수 있다.
+```
+
+---
+
+## CHAPTER 4.6 : 계층형 질의와 셀프 조인 ⭐️⭐️⭐️
