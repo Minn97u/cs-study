@@ -117,7 +117,7 @@ SELECT EMPNO, ENAME, NVL(COMM, 0) AS COMM FROM EMP;
 ```
 
 #### NULLIF
-- 입력된 두 인자가 같으면 Null을 반환하고 다르면 첫 번째 인자를 반환
+- 입력된 두 인자가 <span style="background:#d4b106">같으면 Null</span>을 반환하고 <span style="background:#d4b106">다르면 첫 번째 인자</span>를 반환
 
 ```
 NULLIF(arg1, arg2) 
@@ -135,6 +135,7 @@ SELECT EMPNO, COALESCE(HOURLY_WAGE, SALARY, COMMISSION) AS TOTAL_SALARY FROM WAG
 
 [해설]
 1. HOURLY_WAGE, SALARY, COMMISSION 칼럼 순으로 읽어서 NULL이 아닌 첫 번째 값을 반환
+2. 3가지 컬럼을 합체해서 새로운 열을 만드는데 NULL이 아닌 첫번째 값으로 지정해서 들어감
 ```
 
 ---
@@ -189,7 +190,7 @@ SELECT DEPTNO, SUM(SAL) AS SALS FROM EMP GROUP BY DEPTNO;
 - GROUP BY 절로 그룹핑한 후에는 해당 그룹에 대해 집계함수를 사용하여 개수, 합 , 평균 등을 계산
 - 집계함수는 그룹을 대상으로 연산을 수행하므로, GROUP BY 절 없이 집계함수를 사용하면 전체 행을 하나의 그룹으로 간주하고 연산 수행
 
-><span style="background:#fff88f"> 칼럼명 앞에 DISTINCT를 붙이면 칼럼값의 중복을 제거하므로, 집계함수의 인자로 입력되는 칼럼명에 DISTINCT를 사용하면 해당 그룹에서 첫 번쨰 행에 대해서만 연산을 수행</span>
+><span style="background:#fff88f"> 칼럼명 앞에 DISTINCT를 붙이면 칼럼값의 중복을 제거하므로, 집계함수의 인자로 입력되는 칼럼명에 DISTINCT를 사용하면 해당 그룹에서 첫 번째 행에 대해서만 연산을 수행</span>
 
 
 ### HAVING 절
@@ -233,10 +234,10 @@ SELECT 문의 논리적 수행 순서
 Oracle의 경우에는 NULL을 최댓값 취급 -> 오름차순의 경우에 맨 마지막에 위치
 SQL Server는 반대
 
-순서를 변경하고 싶다면 NULLS FIRST< NULLS LAST 옵션을 써서 정렬 순서를 변경 가능하다
+순서를 변경하고 싶다면 NULLS FIRST NULLS LAST 옵션을 써서 정렬 순서를 변경 가능하다
 ```
 
-> <span style="background:#fff88f">ORDER BY 절은 논리적으로 SELECT 절 다음에 수행되기 때문에 SELECT 절에서 장의한 ALIAS를 사용할 수 있다. ORDER BY 절의, 옵션은 각 칼럼 다음에 하나씩 붙여서 작성해야한다.</span>
+> <span style="background:#fff88f">ORDER BY 절은 논리적으로 SELECT 절 다음에 수행되기 때문에 SELECT 절에서 정의한 ALIAS를 사용할 수 있다. ORDER BY 절의, 옵션은 각 칼럼 다음에 하나씩 붙여서 작성해야한다.</span>
 
 
 ## CHAPTER 3.5 : JOIN ⭐️⭐️⭐️

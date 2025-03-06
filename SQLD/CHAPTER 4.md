@@ -20,9 +20,9 @@ WHERE E.DEPTNO = D.DEPTNO;
 
 #### 서브쿼리 위치에 따른 구분
 
-- 스칼라 서브쿼리 - SELECT문의 칼럼 입력 위치에 들어감
-- 인라인 뷰 - FROM절의 테이블 입력 위치
-- 중첩 서브쿼리 - WHERE절, HAVING절의 칼럼 또는 테이블 입력 위치
+- <span style="background:#d4b106">스칼라 서브쿼리</span> - SELECT문의 칼럼 입력 위치에 들어감
+- <span style="background:#d4b106">인라인 뷰</span> - FROM절의 테이블 입력 위치
+- <span style="background:#d4b106">중첩 서브쿼리</span> - WHERE절, HAVING절의 칼럼 또는 테이블 입력 위치
 
 #### 메인쿼리의 칼럼 사용 여부에 따른 구분
 
@@ -71,7 +71,7 @@ WHERE M.PRODUCT_CODE = S.PRODUCT_CODE;
 #### 중첩 서브쿼리 ⭐️⭐️⭐️
 
 - 쿼리 안 특히 WHERE 절과 HAVING 절에 다른 쿼리가 중첩되어 들어간 경우를 지칭
-- 반환하는 값의 형태가 하나가 아니며, 다양한 반환값을 지님
+- <span style="background:#d4b106">반환하는 값의 형태가 하나가 아니며, 다양한 반환값을 지님</span>
 
  
 | <center>반환값 유형</center> | 설명                                                                                        |
@@ -106,7 +106,7 @@ SELECT EMPNO,
 		SAL,
 		DEPTNO
 FROM EMP
-WHERE DEPTNO IN (SELECT AVG(E.SAL) FROM EMP E);
+WHERE DEPTNO IN (SELECT DISTINCT DEPTNO FROM EMP WHERE SAL <= 1000);
 
 -----------------------------------------------------------
 - 급여(SAL)가 1000 이하인 부서원이 있는 부서에 속한 사원 정보를 조회한다.
@@ -218,9 +218,9 @@ ORDER BY CYL, GEAR;
 ```
 
 ### GROUPING
-- ROLLIP, CUBE, GROUPING SETS와 함께 쓰이며 소계에 해당하는 결과 행과 그렇지 않은 행을 구분
+- <span style="background:#d4b106">ROLLIP, CUBE, GROUPING SETS와 함께 쓰이며 소계에 해당하는 결과 행과 그렇지 않은 행을 구분</span>
 - 소계에 해당하는 결과 행의 결우에는 1을 반환하고 그렇지 않은 경우에는 0을 반환
-- GROUPING함수와 CASE문을 사용하여 소계나 총계를 표시하는 행에 대해서 그 의미에 맞는 텍스트를 값으로 지정가능
+- <span style="background:#d4b106">GROUPING함수와 CASE문을 사용하여 소계나 총계를 표시하는 행에 대해서 그 의미에 맞는 텍스트를 값으로 지정가능</span>
 
 ```
 SELECT CASE GROUPING(CYL)
@@ -367,3 +367,26 @@ WHERE RANK <= 5;
 ---
 
 ## CHAPTER 4.6 : 계층형 질의와 셀프 조인 ⭐️⭐️⭐️
+### 셀프조인
+셀프 조인은 말 그대로 나 자신과의 조인이다 FROM 절에 같은 테이블이 두 번 이상 등장하기 때문에 혼란을 막기 위해 ALIAS를 반드시 표기해주어야 한다.
+
+
+
+
+### 계층형 질의
+
+ex)
+```
+SELECT *
+FROM ENP
+START WITH MGRNO IS NULL
+CONNECT BY PRIOR EMPNO=MARNO
+ORDER SIVLINGS BY EMPNO DESC;
+---------------------------------------------------------------------
+- 사원번호(EMPNO)가 자식, 관리자번호(MGRNO)가 부모를 가리키므로
+CONNECT BY PRIOR EMPNO = MGRNO에 따른 부모 -> 자식의 순방향 전개
+```
+
+> 프자부순
+- <span style="background:#d4b106">프라이어 자식노드 부모노드 순방향</span>
+- <span style="background:#d4b106">프라이어 부모노드 자식노드 역방향</span>
