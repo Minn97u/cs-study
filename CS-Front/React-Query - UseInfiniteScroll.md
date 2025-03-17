@@ -1,6 +1,6 @@
 useInfiniteQuery는 **React Query에서 무한스크롤(페이지네이션)을 쉽게 구현할 수 있도록 도와주는 훅**이야.
 
-일반적인 useQuery와 다르게, **“다음 페이지 존재 여부를 체크”하고, “필요할 때만 추가 데이터를 불러오는” 기능**을 제공한다.
+일반적인 useQuery와 다르게, **“다음 페이지 존재 여부를 체크”하고, “필요할 때만 추가 데이터를 불러오는” 기능**을 제공해.
 
 ```tsx
 import { useInfiniteQuery } from "@tanstack/react-query";
