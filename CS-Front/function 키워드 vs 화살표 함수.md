@@ -9,3 +9,12 @@ function 함수는 아래처럼 호출 방법에 따라 this가 달라집니다:
 • **이벤트 핸들러 호출**: this는 이벤트를 발생시킨 DOM 요소
 
 • **setTimeout 내 콜백**: this는 전역 객체 (엄격 모드에선 undefined)
+
+`const obj = {
+  value: 1,
+  getValue: () => {
+    console.log(this.value); // ❌ undefined
+  }
+};
+obj.getValue(); // this는 obj가 아니라 전역 스코프의 this`
+
